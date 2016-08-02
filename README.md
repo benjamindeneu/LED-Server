@@ -17,11 +17,11 @@ Set the IP-Address and Port in the Script to your local Settings.
 
 
 
-Update 02. Aug. 2016
+#Update 02. Aug. 2016
 
 
 
-Autostart as systemd servive: 
+##Autostart as systemd servive: 
 You can also setup a systemd service on your Raspberry Pi in order to autorun PIGPIOD and the LED-server at startup. Just follow [this guide](http://www.raspberrypi-spy.co.uk/2015/10/how-to-autorun-a-python-script-on-boot-using-systemd/). Before step 2 you need to create a shell script that starts PIGPIOD and the Led-Server. Create the file /home/pi/Desktop/rgbservice.sh (or any other location) with the following content:
 
 `sudo pigpiod`
@@ -34,9 +34,7 @@ Then in step 2, change the line starting with ExecStart to the following:
 
 Apart from that, just follow all steps of the guide.
 
-
-
-Autostart with rc.local:
+##Autostart with rc.local:
 Just copy the following lines into /etc/rc.local (before the line `exit 0`):
 
 `/DIRECTORY/TO/pigpiod`
@@ -45,8 +43,7 @@ Just copy the following lines into /etc/rc.local (before the line `exit 0`):
 After that just reboot:
 `sudo reboot`
 
-
-
+#Setup
 Here's how to wire it, in my case i used **STP16NF06L Mosfets** (The RGB-Led in this Picture can be replaced by a RGB-Led Strip):
 
 ![](https://github.com/simondankelmann/LED-Server/blob/master/Server-Setup.png)
