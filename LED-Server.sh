@@ -1,6 +1,10 @@
+#!/bin/bash 
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+
 #STOP POSSIBLE RUNNING PIGPIOD
 sudo killall pigpiod
 #START PIGPIOD
 sudo pigpiod
 #START LED-SERVER
-sudo python ./server.py
+sudo python $SCRIPTPATH/server.py

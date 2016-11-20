@@ -10,7 +10,7 @@ serversocket.listen(5)
 
 while True:
     connection, address = serversocket.accept()
-    buf = connection.recv(64)
+    buf = connection.recv(32)
     if len(buf) > 0:
 
         #COPS EFFECT
