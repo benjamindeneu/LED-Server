@@ -41,7 +41,7 @@ while True:
 
 		if data == "FADE":
 			oEffectThread.stopit()
-			oEffectThread = effect_fade(0.1)
+			oEffectThread = effect_fade(0.03)
 			oEffectThread.start()
 
 			
@@ -55,4 +55,5 @@ while True:
             else:
                 s.close()
                 read_list.remove(s)
+
 
