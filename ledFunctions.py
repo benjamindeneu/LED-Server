@@ -22,10 +22,3 @@ def setRGB(r,g,b):
         setLights(RED_PIN, r)
         setLights(GREEN_PIN, g)
         setLights(BLUE_PIN,b)
-
-
-def setRGB(r,g,b):
-        setLights(RED_PIN, r)
-        setLights(GREEN_PIN, g)
-        setLights(BLUE_PIN,b)
-
