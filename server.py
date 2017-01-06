@@ -1,21 +1,11 @@
-import select
 import socket
-import pigpio
+import select
 
-#NETWORK SETTINGS
-SERVER_IP = ""
-SERVER_PORT = 12345
-
-#IO-PIN SETUP
-RED_PIN   = 17
-GREEN_PIN = 22
-BLUE_PIN  = 24
-
-#PIGPIO OBJECT TO SWITCH/DIM LED CHANNELS
-pi = pigpio.pi()
-
-#MAXIMUM OF BRIGHTNESS
-MAX_BRIGHTNESS = 255
+from config import *
+from ledFunctions import *
+from effectThread import *
+from effect_cops import *
+from effect_fade import *
 
 led_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 led_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -24,20 +14,7 @@ led_socket.listen(5)
 
 print "LED SERVER STARTED AT " + SERVER_IP + " ON PORT: " + str(SERVER_PORT)
 
-def setLights(pin, brightness):
-        realBrightness = int(int(brightness) * (float(MAX_BRIGHTNESS) / 255.0))
-        pi.set_PWM_dutycycle(pin, realBrightness)
-
-def setRGB(r,g,b):
-        setLights(RED_PIN, r)
-        setLights(GREEN_PIN, g)
-        setLights(BLUE_PIN,b)
-
-
-def setRGB(r,g,b):
-        setLights(RED_PIN, r)
-        setLights(GREEN_PIN, g)
-        setLights(BLUE_PIN,b)
+oEffectThread = effect_cop(1)
 
 read_list = [led_socket]
 while True:
@@ -46,12 +23,31 @@ while True:
         if s is led_socket:
             client_socket, address = led_socket.accept()
             read_list.append(client_socket)
-            #print "Connection from", address
         else:
-            data = s.recv(64)
-            if data:
+            byteData = s.recv(24)
+	    data = byteData.decode('utf-8')
+            if len(data) > 0:
+		if data == "OFF":
+			oEffectThread.stopit()
+			setRGB(0,0,0)
+
+		if data == "STOP":
+			oEffectThread.stopit()
+
+		if data == "COPS":
+			oEffectThread.stopit()
+			oEffectThread = effect_cop(0.5)
+			oEffectThread.start()
+
+		if data == "FADE":
+			oEffectThread.stopit()
+			oEffectThread = effect_fade(0.1)
+			oEffectThread.start()
+
+			
                 aRGB = data.split(',')
                 if len(aRGB) == 3:
+			oEffectThread.stopit()
                         r = int(aRGB[0])
                         g = int(aRGB[1])
                         b = int(aRGB[2])
