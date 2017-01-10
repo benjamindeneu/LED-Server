@@ -14,3 +14,6 @@ pi = pigpio.pi()
 
 #MAXIMUM OF BRIGHTNESS
 MAX_BRIGHTNESS = 255
+
+#MODE
+MODE = "fade"
