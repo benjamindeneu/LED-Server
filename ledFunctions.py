@@ -1,4 +1,4 @@
-from config import pi, MAX_BRIGHTNESS, SPI_PORT, SPI_DEVICE, PIXEL_COUNT
+from config import MAX_BRIGHTNESS, SPI_PORT, SPI_DEVICE, PIXEL_COUNT
 import RPi.GPIO as GPIO
 # Import the WS2801 module.
 import Adafruit_WS2801
