@@ -1,5 +1,3 @@
-import pigpio
- 
 #NETWORK SETTINGS
 SERVER_IP = ""
 SERVER_PORT = 12345
@@ -10,9 +8,6 @@ PIXEL_COUNT = 101
 # Alternatively specify a hardware SPI connection on /dev/spidev0.0:
 SPI_PORT = 0
 SPI_DEVICE = 0
-
-#PIGPIO OBJECT TO SWITCH/DIM LED CHANNELS
-pi = pigpio.pi()
 
 #MAXIMUM OF BRIGHTNESS
 MAX_BRIGHTNESS = 255
