@@ -1,9 +1,20 @@
-from config import pi, MAX_BRIGHTNESS, RED_PIN, BLUE_PIN, GREEN_PIN
+from config import pi, MAX_BRIGHTNESS, SPI_PORT, SPI_DEVICE, PIXEL_COUNT
+import RPi.GPIO as GPIO
+# Import the WS2801 module.
+import Adafruit_WS2801
+import Adafruit_GPIO.SPI as SPI
 
 
-def setLights(pin, brightness):
-		realBrightness = int(int(brightness) * (float(MAX_BRIGHTNESS) / 255.0))
-		pi.set_PWM_dutycycle(pin, realBrightness)
+pixels = Adafruit_WS2801.WS2801Pixels(PIXEL_COUNT, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE), gpio=GPIO)
+
+
+def setLights(r, g, b):
+		realBrightness_r = int(int(r) * (float(MAX_BRIGHTNESS) / 255.0))
+		realBrightness_g = int(int(g) * (float(MAX_BRIGHTNESS) / 255.0))
+		realBrightness_b = int(int(b) * (float(MAX_BRIGHTNESS) / 255.0))
+		for i in range(pixels.count()):
+			pixels.set_pixel(i, Adafruit_WS2801.RGB_to_color(realBrightness_r, realBrightness_g, realBrightness_b))
+		pixels.show()
 
 
 def setRGB(r, g, b):
@@ -21,6 +32,4 @@ def setRGB(r, g, b):
 	if b < 0:
 		b = 0
 	
-	setLights(RED_PIN, r)
-	setLights(GREEN_PIN, g)
-	setLights(BLUE_PIN, b)
+	setLights(r, g, b)

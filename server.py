@@ -2,10 +2,10 @@ import socket
 import select
 from config import SERVER_IP, SERVER_PORT, MODE
 from ledFunctions import setRGB
-from effectThread import *
 from effect_cops import effect_cop
 from effect_fade import effect_fade
 from ColorFader import ColorFader
+
 
 R_CURRENT = 0
 G_CURRENT = 0
