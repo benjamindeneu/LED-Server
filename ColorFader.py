@@ -1,14 +1,9 @@
-import socket
-import select
-from config import *
-from ledFunctions import *
-from effectThread import *
-from effect_cops import *
-from effect_fade import *
+import time
+from effectThread import StoppableThread
+from ledFunctions import setRGB
+
 
 class ColorFader(StoppableThread):
-	import time
-
 	iInterval = 1
 	iDuration = 1000
 
@@ -68,10 +63,8 @@ class ColorFader(StoppableThread):
 		#CHECK IF ITS READY
 		if rEnd and gEnd and bEnd:
 			self.stopit()
-		
 
-
-	def __init__(self, iDuration, rStart,gStart,bStart,rFinal,gFinal,bFinal):
+	def __init__(self, iDuration, rStart, gStart, bStart, rFinal, gFinal, bFinal):
 		self.iDuration = iDuration
 		self.iInterval = 1 / iDuration  
 		StoppableThread.__init__(self)
@@ -89,7 +82,6 @@ class ColorFader(StoppableThread):
 		self.rSpeed = rDifference / self.iDuration
 		if not rDifference is 0 and self.rSpeed is 0:
 			self.rSpeed = 1
-		 
 
 		#GREEN
 		gDifference = self.gFinal - self.gCurrent
@@ -102,7 +94,6 @@ class ColorFader(StoppableThread):
 		self.bSpeed = bDifference / self.iDuration
 		if not bDifference is 0 and self.bSpeed is 0:
 			self.bSpeed = 1
-		
 
 	def run(self):
 		while not self.stopped():

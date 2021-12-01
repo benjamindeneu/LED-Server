@@ -1,10 +1,12 @@
-from config import *
+from config import pi, MAX_BRIGHTNESS, RED_PIN, BLUE_PIN, GREEN_PIN
+
 
 def setLights(pin, brightness):
-        realBrightness = int(int(brightness) * (float(MAX_BRIGHTNESS) / 255.0))
-        pi.set_PWM_dutycycle(pin, realBrightness)
+		realBrightness = int(int(brightness) * (float(MAX_BRIGHTNESS) / 255.0))
+		pi.set_PWM_dutycycle(pin, realBrightness)
 
-def setRGB(r,g,b):
+
+def setRGB(r, g, b):
 	if r > 255:
 		r = 255
 	if g > 255:
@@ -19,6 +21,6 @@ def setRGB(r,g,b):
 	if b < 0:
 		b = 0
 	
-        setLights(RED_PIN, r)
-        setLights(GREEN_PIN, g)
-        setLights(BLUE_PIN,b)
+	setLights(RED_PIN, r)
+	setLights(GREEN_PIN, g)
+	setLights(BLUE_PIN, b)
